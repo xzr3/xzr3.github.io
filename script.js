@@ -22,7 +22,7 @@ function selectRandomMovieID() {
 
 // Function to request movie details from the OMDB API
 function getMovieDetails(randomID, isSearched = false) {
-  const url = `http://www.omdbapi.com/?i=${randomID}&apikey=${apiKey}`;
+  const url = `https://www.omdbapi.com/?i=${randomID}&apikey=${apiKey}`;
   fetch(url)
     .then(response => response.json())
     .then(data => {
