@@ -1,68 +1,77 @@
-const apiKey = '8313fc63';
+const apiKey = '5948fedc97ad674cabed5c55ee23246f';
 const movieSearchBox = document.getElementById('movie-search-box');
 const searchList = document.getElementById('search-list');
 const resultGrid = document.getElementById('result-grid');
 const SuggestionGrid = document.getElementById('suggestion-grid');
 let searchResults = [];
-// Array to simulate the movie database
-const movieDatabase = [
-  'tt0111161', // The Shawshank Redemption
-  'tt0468569', // The Dark Knight
-  'tt1375666', // Inception
-  'tt0133093', // The Matrix
-  'tt0137523', // Fight Club
-  // Add more movie IDs here
-];
 
-// Function to select a random movie ID from the database
-function selectRandomMovieID() {
-  const randomIndex = Math.floor(Math.random() * movieDatabase.length);
-  return movieDatabase[randomIndex];
+// Function to select a random movie or series ID from TMDB API
+async function selectRandomMediaID() {
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}`;
+  const response = await fetch(url);
+  const movieData = await response.json();
+  if (movieData.results && movieData.results.length > 0) {
+    const randomIndex = Math.floor(Math.random() * movieData.results.length);
+    return movieData.results[randomIndex].id;
+  }
+
+  const seriesURL = `https://api.themoviedb.org/3/discover/tv?api_key=${apiKey}`;
+  const seriesResponse = await fetch(seriesURL);
+  const seriesData = await seriesResponse.json();
+  if (seriesData.results && seriesData.results.length > 0) {
+    const randomIndex = Math.floor(Math.random() * seriesData.results.length);
+    return seriesData.results[randomIndex].id;
+  }
+
+  return null;
 }
 
-// Function to request movie details from the OMDB API
-function getMovieDetails(randomID, isSearched = false) {
-  const url = `https://www.omdbapi.com/?i=${randomID}&apikey=${apiKey}`;
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.Response === "True") {
-        const movieDetails = {
-          imdbID: data.imdbID,
-          Title: data.Title,
-          Poster: data.Poster,
-          Type: data.Type,
-          Year: data.Year,
-          Rated: data.Rated,
-          Released: data.Released,
-          Genre: data.Genre,
-          Writer: data.Writer,
-          Actors: data.Actors,
-          Plot: data.Plot,
-          Language: data.Language,
-          Awards: data.Awards,
-          isSearched: isSearched
-        };
-        displayMovieDetails(movieDetails);
-      }
-    })
-    .catch(error => {
-      console.log('Error:', error);
-    });
+// Function to request movie or series details from the TMDB API
+async function getMediaDetails(mediaID, isSearched = false) {
+  const url = `https://api.themoviedb.org/3/movie/${mediaID}?api_key=${apiKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  if (response.ok) {
+    const mediaDetails = {
+      imdbID: data.imdb_id,
+      Title: data.title || data.name,
+      Poster: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
+      Type: data.title ? 'movie' : 'series',
+      Year: data.release_date ? data.release_date.substring(0, 4) : 'N/A',
+      Rated: 'N/A',
+      Released: data.release_date ? data.release_date : 'N/A',
+      Genre: data.genres ? data.genres.map((genre) => genre.name).join(', ') : 'N/A',
+      Writer: 'N/A',
+      Actors: 'N/A',
+      Plot: data.overview,
+      Language: data.original_language,
+      Awards: 'N/A',
+      isSearched: isSearched,
+    };
+    displayMediaDetails(mediaDetails);
+  } else {
+    console.log('Error:', data.status_message);
+  }
 }
 
 // Usage
-const randomMovieID = selectRandomMovieID();
-getMovieDetails(randomMovieID);
+async function loadRandomMedia() {
+  const randomMediaID = await selectRandomMediaID();
+  if (randomMediaID) {
+    getMediaDetails(randomMediaID);
+  }
+}
 
-function displayMovieDetails(details) {
-  const movieId = details.imdbID;
+loadRandomMedia();
+
+function displayMediaDetails(details) {
+  const mediaId = details.imdbID;
   let videoLink;
 
   if (details.Type === 'movie') {
-    videoLink = `https://2embed.org/embed/movie?imdb=${movieId}`;
+    videoLink = `https://2embed.org/embed/movie?imdb=${mediaId}`;
   } else if (details.Type === 'series') {
-    videoLink = `https://vidsrc.me/embed/${movieId}`;
+    videoLink = `https://vidsrc.me/embed/${mediaId}`;
   } else {
     // Handle other types (if needed)
     videoLink = '';
@@ -89,25 +98,25 @@ function displayMovieDetails(details) {
     </div>
   `;
 
-  // Store selected movie details in localStorage
-  localStorage.setItem('selectedMovie', JSON.stringify(details));
+  // Store selected media details in localStorage
+  localStorage.setItem('selectedMedia', JSON.stringify(details));
 }
 
-// Load movies from API
-async function loadMovies(searchTerm) {
-  const URL = `https://omdbapi.com/?s=${searchTerm}&page=1&apikey=${apiKey}`;
-  const res = await fetch(URL);
-  const data = await res.json();
-  if (data.Response === "True") {
-    searchResults = data.Search;
+// Load media from API
+async function loadMedia(searchTerm) {
+  const url = `https://api.themoviedb.org/3/search/multi?api_key=${apiKey}&query=${searchTerm}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  if (response.ok && data.results && data.results.length > 0) {
+    searchResults = data.results;
     localStorage.setItem('searchResults', JSON.stringify(searchResults));
-    displayMovieList(searchResults);
+    displayMediaList(searchResults);
   }
 }
 
 // JavaScript code
 // ...
-function findMovies() {
+function findMedia() {
   // Get the search input element
   var searchBox = document.getElementById("movie-search-box");
 
@@ -131,47 +140,45 @@ function findMovies() {
 }
 // ...
 
-function displayMovieList(movies) {
+function displayMediaList(mediaList) {
   searchList.innerHTML = "";
-  movies.forEach((movie) => {
-    const movieListItem = document.createElement('div');
-    const movieType = movie.Type; // Get the type of the movie/series
+  mediaList.forEach((media) => {
+    const mediaListItem = document.createElement('div');
+    const mediaType = media.title ? 'movie' : 'series';
 
-    movieListItem.dataset.id = movie.imdbID; // Setting movie id in data-id
-    movieListItem.classList.add('search-list-item');
+    mediaListItem.dataset.id = media.id;
+    mediaListItem.classList.add('search-list-item');
 
-    let moviePoster;
-    if (movie.Poster !== "N/A") {
-      moviePoster = movie.Poster;
+    let mediaPoster;
+    if (media.poster_path) {
+      mediaPoster = `https://image.tmdb.org/t/p/w500${media.poster_path}`;
     } else {
-      moviePoster = "image_not_found.png";
+      mediaPoster = "image_not_found.png";
     }
 
-    movieListItem.innerHTML = `
+    mediaListItem.innerHTML = `
       <div class="search-item-thumbnail">
-        <img src="${moviePoster}">
+        <img src="${mediaPoster}">
       </div>
       <div class="search-item-info">
-        <h3>${movie.Title}</h3>
-        <p>Type: ${movieType}</p>
-        <p>${movie.Year}</p>
+        <h3>${media.title || media.name}</h3>
+        <p>Type: ${mediaType}</p>
+        <p>${media.release_date || 'N/A'}</p>
       </div>
     `;
 
-    searchList.appendChild(movieListItem);
+    searchList.appendChild(mediaListItem);
   });
-  loadMovieDetails();
+  loadMediaDetails();
 }
 
-function loadMovieDetails() {
-  const searchListMovies = searchList.querySelectorAll('.search-list-item');
-  searchListMovies.forEach((movie) => {
-    movie.addEventListener('click', async () => {
+function loadMediaDetails() {
+  const searchListMedia = searchList.querySelectorAll('.search-list-item');
+  searchListMedia.forEach((media) => {
+    media.addEventListener('click', async () => {
       searchList.classList.add('hide-search-list');
       movieSearchBox.value = "";
-      const result = await fetch(`https://omdbapi.com/?i=${movie.dataset.id}&apikey=${apiKey}`);
-      const movieDetails = await result.json();
-      displayMovieDetails(movieDetails);
+      await getMediaDetails(media.dataset.id);
     });
   });
 }
@@ -186,12 +193,11 @@ window.addEventListener('click', (event) => {
 // Check if search results are stored in localStorage
 if (localStorage.getItem('searchResults')) {
   searchResults = JSON.parse(localStorage.getItem('searchResults'));
-  displayMovieList(searchResults);
+  displayMediaList(searchResults);
 }
 
 // Event listener for clicking on the logo
 const logo = document.getElementById('logo');
 logo.addEventListener('click', () => {
-  const randomMovieID = selectRandomMovieID();
-  getMovieDetails(randomMovieID);
+  loadRandomMedia();
 });
