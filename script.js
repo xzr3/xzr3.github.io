@@ -226,8 +226,9 @@ if (localStorage.getItem('searchResults')) {
 }
 
 // Event listener for clicking on the logo
-const logo = document.getElementById('logo');
+const logo = document.getElementsByClassName('logo');
 logo.addEventListener('click', () => {
   const randomMovieID = selectRandomMovieID();
   getMovieDetails(randomMovieID);
 });
+
