@@ -1,9 +1,45 @@
 const apiKey = '8313fc63';
-const movieSearchBox = document.getElementById('movie-search-box');
-const searchList = document.getElementById('search-list');
-const resultGrid = document.getElementById('result-grid');
-const SuggestionGrid = document.getElementById('suggestion-grid');
+let movieSearchBox;
+let searchList;
+let resultGrid;
 let searchResults = [];
+
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  movieSearchBox = document.getElementById('movie-search-box');
+  searchList = document.getElementById('search-list');
+  resultGrid = document.getElementById('result-grid');
+
+  // Add event listener for the search box
+  movieSearchBox.addEventListener('input', handleSearch);
+  
+  // Check if search results are stored in localStorage
+  if (localStorage.getItem('searchResults')) {
+    searchResults = JSON.parse(localStorage.getItem('searchResults'));
+    displayMovieList(searchResults);
+  }
+  
+  // Load a random movie on initial page load
+  const randomMovieID = selectRandomMovieID();
+  getMovieDetails(randomMovieID);
+});
+
+// Function to handle the search input
+function handleSearch() {
+  const searchText = movieSearchBox.value.trim();
+
+  if (searchText === "") {
+    // If search input is empty, hide the search list
+    searchList.classList.add("hide-search-list");
+    return;
+  }
+
+  // Perform the movie search
+  loadMovies(searchText);
+}
+
+// Rest of the code...
+
 // Array to simulate the movie database
 const movieDatabase = [
   'tt0111161', // The Shawshank Redemption
