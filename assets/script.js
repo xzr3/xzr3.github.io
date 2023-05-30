@@ -96,7 +96,7 @@ function displayMovieDetails(details) {
   let videoLink;
 
   if (details.Type === 'movie') {
-    videoLink = `https://2embed.org/embed/movie?imdb=${movieId}`;
+    videoLink = `https://www.2embed.to/embed/imdb/movie?id=${movieId}`;
   } else if (details.Type === 'series') {
     videoLink = `https://vidsrc.me/embed/${movieId}`;
   } else {
@@ -212,6 +212,7 @@ function loadMovieDetails() {
   });
 }
 
+
 // Event listener for clicking outside the search box
 window.addEventListener('click', (event) => {
   if (event.target.id !== 'movie-search-box') {
@@ -231,4 +232,6 @@ logo.addEventListener('click', () => {
   const randomMovieID = selectRandomMovieID();
   getMovieDetails(randomMovieID);
 });
+
+
 

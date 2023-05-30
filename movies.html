@@ -53,25 +53,7 @@
         </div>
         <!-- end of result container -->
     </div>
-<style>
-  #iframeContainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-</style>
-<div id="iframeContainer">
-<script type="text/javascript">
-	atOptions = {
-		'key' : '21f9800930dc2d5dc2644ade0270dfd1',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/21f9800930dc2d5dc2644ade0270dfd1/invoke.js"></scr' + 'ipt>');
-</script>    
-</div> 
+
     <style>
       body {
         background-color: #171717;
@@ -133,7 +115,7 @@
     
     </head>
     <body>
-      <h1>TOP MOVIES</h1>
+      <h1>Popular Movies</h1>
     
       <div class="movies-container" id="movies-container"></div>
     
@@ -141,26 +123,74 @@
         // Fetch movie data from OMDB API
         const fetchMovies = async () => {
           const movieTitles = [
-            "Inception",
-            "The Shawshank Redemption",
-            "The Dark Knight",
-            "Pulp Fiction",
-            "Fight Club",
-            "The Godfather",
-            "The Matrix",
-            "Forrest Gump",
-            "Goodfellas",
-            "The Lord of the Rings: The Fellowship of the Ring",
-            "The Silence of the Lambs",
-            "Star Wars: Episode V - The Empire Strikes Back",
-            "Schindler's List",
-            "The Avengers",
-            "Interstellar",
-            "The Lion King",
-            "Casablanca",
-            "Gladiator",
-          ];
-      
+  "Inception",
+  "The Shawshank Redemption",
+  "The Dark Knight",
+  "Pulp Fiction",
+  "Fight Club",
+  "The Godfather",
+  "The Matrix",
+  "Forrest Gump",
+  "Goodfellas",
+  "The Lord of the Rings: The Fellowship of the Ring",
+  "The Silence of the Lambs",
+  "Star Wars: Episode V - The Empire Strikes Back",
+  "Schindler's List",
+  "The Avengers",
+  "Interstellar",
+  "The Lion King",
+  "Casablanca",
+  "Gladiator",
+  "The Departed",
+  "The Prestige",
+  "Memento",
+  "The Green Mile",
+  "The Usual Suspects",
+  "Seven",
+  "The Sixth Sense",
+  "The Dark Knight Rises",
+  "The Godfather Part II",
+  "The Godfather Part III",
+  "The Matrix Reloaded",
+  "The Matrix Revolutions",
+  "The Lord of the Rings: The Two Towers",
+  "The Lord of the Rings: The Return of the King",
+  "The Hobbit: An Unexpected Journey",
+  "The Hobbit: The Desolation of Smaug",
+  "The Hobbit: The Battle of the Five Armies",
+  "Reservoir Dogs",
+  "Django Unchained",
+  "Kill Bill: Volume 1",
+  "Kill Bill: Volume 2",
+  "The Hateful Eight",
+  "Once Upon a Time in Hollywood",
+  "The Good, the Bad and the Ugly",
+  "A Fistful of Dollars",
+  "For a Few Dollars More",
+  "Once Upon a Time in the West",
+  "Apocalypse Now",
+  "Taxi Driver",
+  "Raging Bull",
+  "Mean Streets",
+  "Casino",
+  "Heat",
+  "Scarface",
+  "The Irishman",
+  "No Country for Old Men",
+  "Fargo",
+  "The Big Lebowski",
+  "American Beauty",
+  "Eternal Sunshine of the Spotless Mind",
+  "The Truman Show",
+  "Catch Me If You Can",
+  "American History X",
+  "Requiem for a Dream",
+  "The Social Network",
+  "Drive",
+  "Blade Runner",
+];
+
+
           const movieContainer = document.getElementById("movies-container");
       
           for (const title of movieTitles) {
@@ -205,165 +235,18 @@
 
     // Add event listener to the movie container
     movieElement.addEventListener('click', () => {
-       displayMovieDetails(data);
-      window.scrollTo(0, 0); // Scroll to the top of the page
-    });
+      displayMovieDetails(data);
+     window.scrollTo(0, 0); // Scroll to the top of the page
+   });
 
-    movieContainer.appendChild(movieElement);
+   movieContainer.appendChild(movieElement);
   }
 };
 }
 fetchMovies();
-</script>
       
-<style>
-  #iframeContainer {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-</style>
-<div id="iframeContainer">
-<script type="text/javascript">
-	atOptions = {
-		'key' : '21f9800930dc2d5dc2644ade0270dfd1',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/21f9800930dc2d5dc2644ade0270dfd1/invoke.js"></scr' + 'ipt>');
-</script>    
-</div> 
-<style>
-
-  .series-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-  }
-  .series-poster {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 180px;
-    margin: 10px;
-    padding: 10px;
-    background-color: #292929;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer; /* Added cursor pointer for clickable effect */
-    transition: transform 0.3s ease-in-out; /* Added transition for smooth animation */
-  }
-  .series-poster:hover {
-    transform: scale(1.05); /* Added scaling effect on hover */
-  }
-  .series-poster img {
-    width: 150px;
-    height: auto;
-    border-radius: 5px;
-  }
-  .series-details {
-    margin-top: 10px;
-    text-align: center;
-  }
-  .series-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #dab94e;
-  }
-  .series-rating {
-    font-size: 14px;
-    color: #666;
-  }
-  .series-genre {
-    font-size: 14px;
-    color: #999;
-  }
-</style>
-<h1>TOP TV SERIES</h1>
-
-<div class="series-container" id="series-container"></div>
-<script>
-  // Fetch TV series data from OMDB API
-  const fetchSeries = async () => {
-    const seriesTitles = [
-      "Breaking Bad",
-      "Game of Thrones",
-      "Friends",
-      "Stranger Things",
-      "The Office",
-      "Sherlock",
-      "The Big Bang Theory",
-      "Money Heist",
-      "The Crown",
-      "Black Mirror",
-      "Westworld",
-      "The Mandalorian",
-      "Narcos",
-      "Peaky Blinders",
-      "Better Call Saul",
-      "True Detective",
-      "The Witcher",
-      "Fargo",
-
-      // Add more series titles here
-    ];
-    const seriesContainer = document.getElementById("series-container");
-
-    for (const title of seriesTitles) {
-      const response = await fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8313fc63`);
-      const data = await response.json();
-
-      if (data.Response === "True") {
-        const seriesPoster = data.Poster;
-        const seriesTitle = data.Title;
-        const seriesRating = data.imdbRating;
-        const seriesGenre = data.Genre;
-
-        const seriesElement = document.createElement("div");
-        seriesElement.className = "series-poster";
-
-        const posterElement = document.createElement("img");
-        posterElement.src = seriesPoster;
-        posterElement.alt = `Series Poster: ${seriesTitle}`;
-
-        const detailsElement = document.createElement("div");
-        detailsElement.className = "series-details";
-
-        const titleElement = document.createElement("h3");
-        titleElement.className = "series-title";
-        titleElement.textContent = seriesTitle;
-
-        const ratingElement = document.createElement("p");
-        ratingElement.className = "series-rating";
-        ratingElement.textContent = `Rating: ${seriesRating}/10`;
-
-        const genreElement = document.createElement("p");
-        genreElement.className = "series-genre";
-        genreElement.textContent = `Genre: ${seriesGenre}`;
-
-        detailsElement.appendChild(titleElement);
-        detailsElement.appendChild(ratingElement);
-        detailsElement.appendChild(genreElement);
-
-        seriesElement.appendChild(posterElement);
-        seriesElement.appendChild(detailsElement);
-
-        // Add event listener to the series container
-        seriesElement.addEventListener('click', () => {
-          displayMovieDetails(data);
-          window.scrollTo(0, 0); // Scroll to the top of the page
-        });
-
-        seriesContainer.appendChild(seriesElement);
-      }
-    }
-  };
-
-  fetchSeries();
 </script>
+
 <style>
   #iframeContainer {
       display: flex;
@@ -383,7 +266,7 @@ fetchMovies();
 	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/21f9800930dc2d5dc2644ade0270dfd1/invoke.js"></scr' + 'ipt>');
 </script>    
 </div> 
-
+  
     <footer>
         <div class="logo" id="logo">
             <div class="container">
@@ -398,10 +281,13 @@ fetchMovies();
     </footer>
 
     <!--social bar-->
-<script type='text/javascript' src='//pl19484718.highrevenuegate.com/d2/fc/07/d2fc0799decdb5691d1a16740e4b5acd.js'></script>
+    <script type='text/javascript' src='//pl19484718.highrevenuegate.com/d2/fc/07/d2fc0799decdb5691d1a16740e4b5acd.js'></script>
+
+
+
 
     <!-- movie app js -->
-    <script src="assets/script.js"></script>
+    <script src="assets/movies.js"></script>
 
 </body>
 </html>
