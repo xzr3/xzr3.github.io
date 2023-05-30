@@ -194,7 +194,7 @@
           const movieContainer = document.getElementById("movies-container");
       
           for (const title of movieTitles) {
-            const response = await fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8313fc63`);
+            const response = await fetch(`https://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8313fc63`);
             const data = await response.json();
       
             if (data.Response === "True") {
