@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Watch HD movies online for free without registration on Movies321. Explore a vast collection of movies and enjoy the best streaming experience.">
+    <meta name="keywords" content="123movies, movies123, movies321, free HD movies321, watch movies online, free movies, HD movies, online movie, movie online, free movies online, watch movies online free, free hd movies">
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <title>Watch HD Movies Online for Free | Movies321</title>
+    <!-- font awesome icons cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="assets/main.css">
+</head>
+<body>
+   
+    <div class="wrapper">
+        <!-- logo -->
+        <div class="navbar">
+          <div class="logo" id="logo">
+              <div class="container">
+                  <p><a href="index.html">Movies<span>321.</span></a></p>
+              </div>
+          </div>
+          <a class="active" href="index.html">Home</a>
+          <a href="movies.html">Movies</a>
+          <a href="series.html">TV Shows</a>
+      </div>
+        <!-- end of logo -->
+        <!-- search container -->
+        <div class="search-container">
+            <div class="search-element">
+                <input type="text" class="form-control" placeholder="Search Movie Title..." id="movie-search-box" onkeyup="findMovies()" onclick="findMovies()" style="width: 350px; height: 50px;" autocomplete="off" autocapitalize="off" inputmode="search">
+                <div class="search-list hide-search-list" id="search-list">
+                    <!-- list here -->
+                </div>
+            </div>
+        </div>
+        <!-- end of search container -->
+
+        <!-- result container -->
+        <div class="container">
+            <div class="result-container">
+                <div class="result-grid" id="result-grid">
+                    <!-- movie information here -->
+                </div>
+            </div>
+        </div>
+        <!-- end of result container -->
+    </div>
+
+    <style>
+      body {
+        background-color: #171717;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #dab94e;
+        text-align: center;
+        padding-top: 20px;
+      }
+      .movies-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+      }
+      .movies-poster {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 180px;
+        margin: 10px;
+        padding: 10px;
+        background-color: #292929;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer; /* Add cursor style to indicate clickability */
+        transition: transform 0.3s ease; /* Add transition effect */
+      }
+      .movies-poster img {
+        width: 150px;
+        height: auto;
+        border-radius: 5px;
+      }
+      .movies-details {
+        margin-top: 10px;
+        text-align: center;
+      }
+      .movies-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #dab94e;
+      }
+      .movies-rating {
+        font-size: 14px;
+        color: #666;
+      }
+      .movies-genre {
+        font-size: 14px;
+        color: #999;
+      }
+    
+      /* Add hover effect */
+      .movies-poster:hover {
+        transform: scale(1.05);
+      }
+    </style>
+    
+    
+    </head>
+    <body>
+      <h1>Popular Movies</h1>
+    
+      <div class="movies-container" id="movies-container"></div>
+    
+      <script>
+        // Fetch movie data from OMDB API
+        const fetchMovies = async () => {
+          const movieTitles = [
+  "Inception",
+  "The Shawshank Redemption",
+  "The Dark Knight",
+  "Pulp Fiction",
+  "Fight Club",
+  "The Godfather",
+  "The Matrix",
+  "Forrest Gump",
+  "Goodfellas",
+  "The Lord of the Rings: The Fellowship of the Ring",
+  "The Silence of the Lambs",
+  "Star Wars: Episode V - The Empire Strikes Back",
+  "Schindler's List",
+  "The Avengers",
+  "Interstellar",
+  "The Lion King",
+  "Casablanca",
+  "Gladiator",
+  "The Departed",
+  "The Prestige",
+  "Memento",
+  "The Green Mile",
+  "The Usual Suspects",
+  "Seven",
+  "The Sixth Sense",
+  "The Dark Knight Rises",
+  "The Godfather Part II",
+  "The Godfather Part III",
+  "The Matrix Reloaded",
+  "The Matrix Revolutions",
+  "The Lord of the Rings: The Two Towers",
+  "The Lord of the Rings: The Return of the King",
+  "The Hobbit: An Unexpected Journey",
+  "The Hobbit: The Desolation of Smaug",
+  "The Hobbit: The Battle of the Five Armies",
+  "Reservoir Dogs",
+  "Django Unchained",
+  "Kill Bill: Volume 1",
+  "Kill Bill: Volume 2",
+  "The Hateful Eight",
+  "Once Upon a Time in Hollywood",
+  "The Good, the Bad and the Ugly",
+  "A Fistful of Dollars",
+  "For a Few Dollars More",
+  "Once Upon a Time in the West",
+  "Apocalypse Now",
+  "Taxi Driver",
+  "Raging Bull",
+  "Mean Streets",
+  "Casino",
+  "Heat",
+  "Scarface",
+  "The Irishman",
+  "No Country for Old Men",
+  "Fargo",
+  "The Big Lebowski",
+  "American Beauty",
+  "Eternal Sunshine of the Spotless Mind",
+  "The Truman Show",
+  "Catch Me If You Can",
+  "American History X",
+  "Requiem for a Dream",
+  "The Social Network",
+  "Drive",
+  "Blade Runner",
+];
+
+
+          const movieContainer = document.getElementById("movies-container");
+      
+          for (const title of movieTitles) {
+            const response = await fetch(`http://www.omdbapi.com/?t=${encodeURIComponent(title)}&apikey=8313fc63`);
+            const data = await response.json();
+      
+            if (data.Response === "True") {
+              const moviePoster = data.Poster;
+              const movieTitle = data.Title;
+              const movieRating = data.imdbRating;
+              const movieGenre = data.Genre;
+      
+
+              const movieElement = document.createElement("div");
+    movieElement.className = "movies-poster";
+
+    const posterElement = document.createElement("img");
+    posterElement.src = moviePoster;
+    posterElement.alt = `Movie Poster: ${movieTitle}`;
+
+    const detailsElement = document.createElement("div");
+    detailsElement.className = "movies-details";
+
+    const titleElement = document.createElement("h3");
+    titleElement.className = "movies-title";
+    titleElement.textContent = movieTitle;
+
+    const ratingElement = document.createElement("p");
+    ratingElement.className = "movies-rating";
+    ratingElement.textContent = `Rating: ${movieRating}/10`;
+
+    const genreElement = document.createElement("p");
+    genreElement.className = "movies-genre";
+    genreElement.textContent = `Genre: ${movieGenre}`;
+
+    detailsElement.appendChild(titleElement);
+    detailsElement.appendChild(ratingElement);
+    detailsElement.appendChild(genreElement);
+
+    movieElement.appendChild(posterElement);
+    movieElement.appendChild(detailsElement);
+
+    // Add event listener to the movie container
+    movieElement.addEventListener('click', () => {
+      displayMovieDetails(data);
+     window.scrollTo(0, 0); // Scroll to the top of the page
+   });
+
+   movieContainer.appendChild(movieElement);
+  }
+};
+}
+fetchMovies();
+      
+</script>
+
+<style>
+  #iframeContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+</style>
+<div id="iframeContainer">
+<script type="text/javascript">
+	atOptions = {
+		'key' : '21f9800930dc2d5dc2644ade0270dfd1',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.profitabledisplaynetwork.com/21f9800930dc2d5dc2644ade0270dfd1/invoke.js"></scr' + 'ipt>');
+</script>    
+</div> 
+  
+    <footer>
+        <div class="logo" id="logo">
+            <div class="container">
+              <p><a href="index.html">Movies<span>321.</span></a></p>
+            </div>
+          </div>
+        <div class="container">
+            <p><strong>Movies321</strong> is the top free streaming website to watch movies online without registration and annoying popup ads (any popup ads on the player are not ours and thus we cannot control them as of yet.). With a vast database and great features, Movies321 is the best platform for free movies online that you can't miss!</p>
+            <p>&copy; 2023 <strong>Movies321</strong>. All rights reserved.</p>
+            <p>This site does not store any files on our server. We only link to media hosted on third-party services.</p>
+        </div>
+    </footer>
+
+    <!--social bar-->
+    <script type='text/javascript' src='//pl19484718.highrevenuegate.com/d2/fc/07/d2fc0799decdb5691d1a16740e4b5acd.js'></script>
+
+
+
+
+    <!-- movie app js -->
+    <script src="assets/movies.js"></script>
+
+</body>
+</html>
