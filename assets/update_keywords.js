@@ -6,17 +6,24 @@ const keywords = fs.readFileSync(path.join(__dirname, "keywords.txt"), "utf-8").
 
 // Randomly select 15 keywords
 const selectedKeywords = [];
-for (let i = 0; i < 15; i++) {
+for (let i = 0; i < 20; i++) {
   const randomIndex = Math.floor(Math.random() * keywords.length);
   selectedKeywords.push(keywords[randomIndex]);
 }
 
-// Specify the relative path to your HTML file
-const htmlFilePath = path.join(__dirname, "../index.html");
+// Specify the relative paths to your HTML files
+const htmlFiles = [
+  path.join(__dirname, "../index.html"),
+  path.join(__dirname, "../movies.html"),
+  path.join(__dirname, "../series.html")
+];
 
-// Update the meta keywords in the HTML file
-let htmlContent = fs.readFileSync(htmlFilePath, "utf-8");
-htmlContent = htmlContent.replace(/<meta\s+name="keywords"\s+id="metaKeywords"\s+content="[^"]*"/, `<meta name="keywords" id="metaKeywords" content="${selectedKeywords.join(", ")}"`);
-fs.writeFileSync(htmlFilePath, htmlContent);
+// Update the meta keywords in each HTML file
+htmlFiles.forEach((htmlFilePath) => {
+  let htmlContent = fs.readFileSync(htmlFilePath, "utf-8");
+  htmlContent = htmlContent.replace(/<meta\s+name="keywords"\s+id="metaKeywords"\s+content="[^"]*"/, `<meta name="keywords" id="metaKeywords" content="${selectedKeywords.join(", ")}"`);
+  fs.writeFileSync(htmlFilePath, htmlContent);
+});
 
-console.log("Meta keywords updated successfully!");
+console.log("Meta keywords updated successfully for all files!");
+
