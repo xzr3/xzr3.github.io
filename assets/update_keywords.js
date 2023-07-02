@@ -11,7 +11,7 @@ for (let i = 0; i < 15; i++) {
 }
 
 // Update the meta keywords in the HTML file
-const htmlFilePath = ["index.html","series.html","movies.html"]; // Replace with the actual path to your HTML file
+const htmlFilePath = ["../index.html","../series.html","../movies.html"]; // Replace with the actual path to your HTML file
 let htmlContent = fs.readFileSync(htmlFilePath, "utf-8");
 htmlContent = htmlContent.replace(/<meta\s+name="keywords"\s+id="metaKeywords"\s+content="[^"]*"/, `<meta name="keywords" id="metaKeywords" content="${selectedKeywords.join(", ")}"`);
 fs.writeFileSync(htmlFilePath, htmlContent);
