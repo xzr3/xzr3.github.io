@@ -1,0 +1,30 @@
+name: Update Meta Keywords
+
+on:
+  schedule:
+    - cron: "* * * * *"
+
+jobs:
+  update_keywords:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Update Meta Keywords
+        run: |
+          node update_keywords.js
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "youremail@example.com"
+          git add .
+          git commit -m "Update meta keywords"
+          git push

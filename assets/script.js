@@ -4,6 +4,7 @@ let searchList;
 let resultGrid;
 let searchResults = [];
 
+
 // Cache DOM elements
 document.addEventListener('DOMContentLoaded', () => {
   movieSearchBox = document.getElementById('movie-search-box');
