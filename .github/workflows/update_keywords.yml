@@ -21,7 +21,6 @@ jobs:
           git config --global user.email "ammaryousaf341@gmail.com"
           git add .
           git commit -m "Update meta keywords"
-          git push https://x-access-token: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@github.com/xzr3/movies321.git
+          echo "Pizzarito3421" | git push https://github.com/xzr3/movies321.git --password-stdin
 
-
-          
+            
