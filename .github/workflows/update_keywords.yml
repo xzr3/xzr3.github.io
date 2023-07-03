@@ -17,12 +17,12 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "xzr3"
-          git config --global user.email "ammaryousaf341@gmail.com"
+          git config --global user.name "${GIT_USER_NAME}"
+          git config --global user.email "${GIT_USER_EMAIL}"      
 
       - name: Commit and Push Changes
         run: |
           git add .
           git commit -m "Update meta keywords"
-          git remote set-url --push origin https://xzr3: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@github.com/xzr3/movies321.git
+          git remote set-url --push origin https://xzr3:${GITHUB_ACCESS_TOKEN}@github.com/xzr3/movies321.git
           git push

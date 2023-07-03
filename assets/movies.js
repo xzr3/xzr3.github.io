@@ -1,4 +1,4 @@
-const apiKey = '8313fc63';
+const apiKey = process.env.API_KEY;
 let movieSearchBox;
 let searchList;
 let resultGrid;
