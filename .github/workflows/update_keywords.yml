@@ -2,7 +2,7 @@ name: Update Keywords
 
 on:
   schedule:
-    - cron: "* * * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   update_keywords:
