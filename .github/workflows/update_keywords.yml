@@ -2,7 +2,7 @@ name: Update Keywords
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "* * * * *"
 
 jobs:
   update_keywords:
@@ -19,10 +19,10 @@ jobs:
         run: |
           git config --global user.name "xzr3"
           git config --global user.email "ammaryousaf341@gmail.com"
-
+        
       - name: Commit and Push Changes
         run: |
-          git add .
-          git commit -m "Update meta keywords"
-          git remote set-url --push origin https://xzr3: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@github.com/xzr3/movies321.git
-          git push
+            git add .
+            git commit -m "Update meta keywords"
+            git remote set-url origin https://xzr3:${{ secrets.GITHUB_TOKEN }}@github.com/xzr3/movies321.git
+            git push      
