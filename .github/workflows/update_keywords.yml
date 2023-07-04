@@ -21,8 +21,6 @@ jobs:
           git config --global user.email "ammaryousaf341@gmail.com"
         
       - name: Commit and Push Changes
-        env:
-          TOKEN: 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
         run: |
           git add .
           git commit -m "Update meta keywords"
