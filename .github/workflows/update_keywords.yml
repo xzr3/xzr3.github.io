@@ -27,4 +27,4 @@ jobs:
           git add .
           git commit -m "Update meta keywords"
           git remote set-url origin https://github.com/xzr3/movies321.git
-          git push origin HEAD:
+          git push origin HEAD:main
