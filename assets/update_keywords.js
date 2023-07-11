@@ -4,6 +4,9 @@ const path = require("path");
 // Read the keywords from the text file
 const keywords = fs.readFileSync(path.join(__dirname, "keywords.txt"), "utf-8").split("\n");
 
+// Specify the fixed keywords that won't get changed
+const fixedKeywords = ["movies321", "movies123", "123movies", "soap2day", "fmovies", "321movies", "movies321xyz", "movies xyz", "free movies online"];
+
 // Specify the relative paths to your HTML files
 const htmlFiles = [
   path.join(__dirname, "../index.html"),
@@ -26,8 +29,14 @@ htmlFiles.forEach((htmlFilePath) => {
   const numKeywords = 20; // Set the desired number of keywords here
   const selectedKeywords = selectRandomKeywords(numKeywords);
 
+  // Add the fixed keywords to the selected keywords
+  const allKeywords = [...selectedKeywords, ...fixedKeywords];
+
   let htmlContent = fs.readFileSync(htmlFilePath, "utf-8");
-  htmlContent = htmlContent.replace(/<meta\s+name="keywords"\s+id="metaKeywords"\s+content="[^"]*"/, `<meta name="keywords" id="metaKeywords" content="${selectedKeywords.join(", ")}"`);
+  htmlContent = htmlContent.replace(
+    /<meta\s+name="keywords"\s+id="metaKeywords"\s+content="[^"]*"/,
+    `<meta name="keywords" id="metaKeywords" content="${allKeywords.join(", ")}"`
+  );
   fs.writeFileSync(htmlFilePath, htmlContent);
 
   console.log(`Meta keywords updated successfully for ${htmlFilePath}!`);
