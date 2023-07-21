@@ -5,7 +5,7 @@ const path = require("path");
 const keywords = fs.readFileSync(path.join(__dirname, "keywords.txt"), "utf-8").split("\n");
 
 // Specify the fixed keywords that won't get changed
-const fixedKeywords = ["movies321", "movies123", "123movies", "soap2day", "fmovies", "321movies", "movies321xyz", "movies xyz", "free movies online"];
+const fixedKeywords = ["Oppenheimer", "Barbie", "Christopher Nolan", "Trending", "movies321", "movies123", "123movies", "soap2day", "fmovies", "321movies", "movies321xyz", "movies xyz", "free movies online"];
 
 // Specify the relative paths to your HTML files
 const htmlFiles = [
