@@ -1,4 +1,4 @@
-const apiKey = '8313fc63';
+const apiKey = '926e961a';
 let movieSearchBox;
 let searchList;
 let resultGrid;
