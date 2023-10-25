@@ -96,9 +96,9 @@ function displayMovieDetails(details) {
   let videoLink;
 
   if (details.Type === 'movie') {
-    videoLink = `https://embed.smashystream.com/playere.php?imdb=${movieId}`;
+    videoLink = `https://vidsrc.to/embed/movie/${movieId}`;
   } else if (details.Type === 'series') {
-    videoLink = `https://embed.smashystream.com/playere.php?imdb=${movieId}&season=1&episode=1`;
+    videoLink = `https://vidsrc.to/embed/tv/${movieId}`;
   } else {
     // Handle other types (if needed)
     videoLink = '';
@@ -110,7 +110,7 @@ function displayMovieDetails(details) {
 </div>
     <div class="movie-info">
       <h3 class="movie-title">${details.Title}</h3>
-      ${videoLink ? `<iframe width="100%" height="270" src="${videoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : ''}
+      ${videoLink ? `<iframe width="700" height="350" src="${videoLink}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>` : ''}
       <ul class="movie-misc-info">
         <li class="year">Year: ${details.Year}</li>
         <li class="rated">Ratings: ${details.Rated}</li>
@@ -187,7 +187,7 @@ function displayMovieDetails(details) {
 
   function updateVideoLink(movieId, selectedSeason, selectedEpisode) {
     // Update the video link based on the selected season and episode
-    videoLink = `https://embed.smashystream.com/playere.php?imdb=${movieId}&season=${selectedSeason}&episode=${selectedEpisode}`;
+    videoLink = `https://vidsrc.to/embed/tv/${movieId}/${selectedSeason}/${selectedEpisode}`;
     // Update the iframe source
     const iframe = document.querySelector('.movie-info iframe');
     iframe.src = videoLink;
